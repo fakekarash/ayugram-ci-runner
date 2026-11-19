@@ -1,0 +1,8 @@
+name: ubuntu probe
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: uname -a
