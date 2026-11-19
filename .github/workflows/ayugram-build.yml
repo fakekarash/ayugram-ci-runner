@@ -121,7 +121,10 @@ jobs:
 
       - name: Verify the simulator UI rendered
         if: inputs.mode == 'simulator'
-        run: swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator.png
+        run: |
+          set -euo pipefail
+          swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator.png
+          swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator-unlocked.png
 
       - name: Upload build evidence
         if: always()
