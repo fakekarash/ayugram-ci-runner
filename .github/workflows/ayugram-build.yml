@@ -103,6 +103,9 @@ jobs:
 
       - name: Validate the sideload IPA
         if: inputs.mode == 'sideload'
+        env:
+          AYUGRAM_DISPLAY_NAME: ${{ inputs.display_name }}
+          AYUGRAM_BUNDLE_ID: ${{ inputs.bundle_id }}
         run: python3 build-system/ayugram_sideload_ci.py verify
 
       - name: Build (simulator)
