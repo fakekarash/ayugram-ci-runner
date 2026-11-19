@@ -67,6 +67,9 @@ jobs:
       - name: Apply reviewed sideload compatibility patches
         run: python3 build-system/ayugram_sideload_ci.py patch
 
+      - name: Verify fake provisioning profiles are not expired
+        run: python3 build-system/extend_fake_profiles.py --check
+
       - name: Parse AyuGram Swift sources
         run: |
           set -euo pipefail
