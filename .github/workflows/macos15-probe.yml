@@ -1,8 +1,0 @@
-name: macos15 probe
-on: workflow_dispatch
-jobs:
-  p:
-    runs-on: macos-15
-    timeout-minutes: 10
-    steps:
-      - run: sw_vers
