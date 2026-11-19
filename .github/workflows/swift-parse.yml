@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out the fork
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           repository: fakekarash/AyuGram-iOS
           ref: ${{ inputs.ref }}
@@ -38,6 +38,10 @@ jobs:
             submodules/TelegramUI/Sources/TelegramRootController.swift
             submodules/TelegramUI/Sources/Chat/ChatControllerOpenViewOnceMediaMessage.swift
             submodules/TelegramUI/Sources/Chat/ChatControllerOpenMessageContextMenu.swift
+            submodules/AppLock/Sources/AppLock.swift
+            submodules/TelegramCore/Sources/TelegramEngine/Messages/ApplyMaxReadIndexInteractively.swift
+            submodules/TelegramCore/Sources/TelegramEngine/Messages/EnqueueMessage.swift
+            submodules/TelegramCore/Sources/TelegramEngine/Messages/AdMessages.swift
           )
           files=$(find submodules -name '*AyuGram*.swift' -not -path '*/build-input/*' | sort)
           printf '%s\n' "$files" | wc -l
