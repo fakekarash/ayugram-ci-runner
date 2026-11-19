@@ -24,9 +24,9 @@ on:
           - 'true'
           - 'false'
       display_name:
-        description: CFBundleDisplayName of the packaged app
+        description: ASCII CFBundleDisplayName of the packaged app (the Russian name ships as a localisation)
         required: false
-        default: Калькулятор
+        default: Calculator
       bundle_id:
         description: Optional bundle id override; empty keeps com.fakekarash.ayugram
         required: false
@@ -128,6 +128,7 @@ jobs:
           set -euo pipefail
           swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator.png
           swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator-unlocked.png
+          swift build-system/validate_simulator_screenshot.swift build/ayugram-simulator/results/sideload/ayugram-simulator-unlocked-by-code.png
 
       - name: Upload build evidence
         if: always()
