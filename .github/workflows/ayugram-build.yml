@@ -86,6 +86,7 @@ jobs:
       - name: Build (sideload IPA)
         if: inputs.mode == 'sideload'
         env:
+          AYUGRAM_KEEP_GOING: "1"
           TELEGRAM_API_ID: ${{ inputs.dummy_credentials == 'true' && '1' || secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ inputs.dummy_credentials == 'true' && '0123456789abcdef0123456789abcdef' || secrets.TELEGRAM_API_HASH }}
         run: python3 -u build-system/ayugram_sideload_ci.py build
@@ -97,6 +98,7 @@ jobs:
       - name: Build (simulator)
         if: inputs.mode == 'simulator'
         env:
+          AYUGRAM_KEEP_GOING: "1"
           TELEGRAM_API_ID: ${{ inputs.dummy_credentials == 'true' && '1' || secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ inputs.dummy_credentials == 'true' && '0123456789abcdef0123456789abcdef' || secrets.TELEGRAM_API_HASH }}
         run: python3 -u build-system/ayugram_simulator_ci.py build
