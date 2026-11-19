@@ -27,11 +27,23 @@ jobs:
       - name: Toolchain
         run: swift --version
 
-      - name: Parse every AyuGram Swift source
+      - name: Parse every AyuGram source and the patched upstream files
         run: |
           set -euo pipefail
+          patched=(
+            submodules/TelegramUI/Sources/ApplicationContext.swift
+            submodules/TelegramUI/Sources/AppDelegate.swift
+            submodules/TelegramUI/Sources/SharedWakeupManager.swift
+            submodules/TelegramUI/Components/Chat/ChatMessageDateAndStatusNode/Sources/StringForMessageTimestampStatus.swift
+            submodules/TelegramUI/Sources/TelegramRootController.swift
+            submodules/TelegramUI/Sources/Chat/ChatControllerOpenViewOnceMediaMessage.swift
+            submodules/TelegramUI/Sources/Chat/ChatControllerOpenMessageContextMenu.swift
+          )
           files=$(find submodules -name '*AyuGram*.swift' -not -path '*/build-input/*' | sort)
-          printf '%s\n' "$files"
           printf '%s\n' "$files" | wc -l
-          printf '%s\n' "$files" | xargs swiftc -frontend -parse
-          printf 'all AyuGram sources parsed\n'
+          printf '%s\n' "${patched[@]}"
+          for path in "${patched[@]}"; do
+            test -f "$path" || { echo "::error::missing patched file $path"; exit 1; }
+          done
+          printf '%s\n' "$files" "${patched[@]}" | xargs swiftc -frontend -parse
+          printf 'all sources parsed\n'
