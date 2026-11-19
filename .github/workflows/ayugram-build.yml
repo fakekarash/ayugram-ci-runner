@@ -64,6 +64,12 @@ jobs:
           fi
           df -h .
 
+      - name: Cache Bazel external repositories
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/ayugram-bazel/cache/repos
+          key: bazel-repos-${{ hashFiles('MODULE.bazel', 'MODULE.bazel.lock') }}
+          restore-keys: bazel-repos-
       - name: Apply reviewed sideload compatibility patches
         run: python3 build-system/ayugram_sideload_ci.py patch
 
