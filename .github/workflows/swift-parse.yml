@@ -40,12 +40,13 @@ jobs:
             submodules/TelegramUI/Sources/Chat/ChatControllerOpenMessageContextMenu.swift
             submodules/AppLock/Sources/AppLock.swift
             submodules/TelegramCore/Sources/TelegramEngine/Messages/ApplyMaxReadIndexInteractively.swift
-            submodules/TelegramCore/Sources/TelegramEngine/Messages/EnqueueMessage.swift
+            submodules/TelegramCore/Sources/PendingMessages/EnqueueMessage.swift
             submodules/TelegramCore/Sources/TelegramEngine/Messages/AdMessages.swift
+            submodules/TelegramCore/Sources/State/AccountStateManagementUtils.swift
+            submodules/AccountContext/Sources/PresentationSurfaceLevels.swift
           )
           files=$(find submodules -name '*AyuGram*.swift' -not -path '*/build-input/*' | sort)
           printf '%s\n' "$files" | wc -l
-          printf '%s\n' "${patched[@]}"
           for path in "${patched[@]}"; do
             test -f "$path" || { echo "::error::missing patched file $path"; exit 1; }
           done
